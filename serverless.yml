@@ -1,0 +1,57 @@
+org: uybv91
+app: wgs-api
+service: api
+frameworkVersion: '2'
+
+custom:
+  prefix: 'wgs-${sls:stage}'
+  tblSetting: '${self:custom.prefix}-setting'
+  tblUser: '${self:custom.prefix}-user'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-1
+  lambdaHashingVersion: '20201221'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: 'arn:aws:dynamodb:ap-northeast-1:*:*'
+  environment:
+    TBL_USER: ${self:custom.tblUser}
+    TBL_SETTING: ${self:custom.tblSetting}
+
+
+functions:
+  api:
+    handler: handler.handler
+    name: wgs-${sls:stage}-api
+    description: WGS API via Serverless Framework
+    events:
+      - httpApi: '*'
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tblUser}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        
