@@ -1,0 +1,42 @@
+{
+  "name": "wgs.app-api",
+  "version": "1.0.0",
+  "description": "WGS APP API",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "local": "serverless offline",
+    "deploy": "serverless deploy"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.51",
+    "@types/dotenv-safe": "^8.1.0",
+    "@types/express": "^4.17.13",
+    "cross-env": "^7.0.2",
+    "serverless-offline": "^5.12.1",
+    "serverless-plugin-typescript": "^1.1.9",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.1.2",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avadkk/wgs.app-api.git"
+  },
+  "keywords": [],
+  "author": "WGS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avadkk/wgs.app-api/issues"
+  },
+  "homepage": "https://github.com/avadkk/wgs.app-api#readme"
+}
