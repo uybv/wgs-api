@@ -4,7 +4,14 @@ service: wgs-app-api
 frameworkVersion: '2'
 
 custom:
-  prefix: 'wgs-${sls:stage}'
+  dynamodb:
+    stages:
+      - dev
+    start:
+      migrate: true
+  prefix: 'wgs-app-${sls:stage}'
+  tables:
+    setting: '${self:custom.prefix}-setting'
 
 provider:
   name: aws
@@ -26,9 +33,11 @@ provider:
           Resource: 'arn:aws:dynamodb:ap-northeast-1:*:*'
   environment:
     NODE_ENV: ${sls:stage}
+    TBL_SETTING: ${self:custom.tables.setting}
 
 plugins:
   - serverless-plugin-typescript 
+  - serverless-dynamodb-local
   - serverless-offline
 
 package:
@@ -44,5 +53,21 @@ functions:
     name: wgs-app-api-${sls:stage}
     description: WGS API via Serverless Framework
     events:
-      - httpApi: '*'
+      - http: ANY /
+      - http: 'ANY {proxy+}'
 
+resources:
+  Resources:
+    SettingTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tables.setting}
+        AttributeDefinitions:
+          - AttributeName: key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: key
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

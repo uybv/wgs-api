@@ -5,24 +5,37 @@
   "main": "index.js",
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "local": "serverless offline",
+    "local": "serverless offline start --printOutput",
     "deploy": "serverless deploy"
   },
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "inversify": "^5.1.1",
+    "inversify-express-utils": "^6.3.2",
+    "prettyjson": "^1.2.1",
+    "reflect-metadata": "^0.1.13",
     "serverless-http": "^2.7.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.51",
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.12",
     "@types/dotenv-safe": "^8.1.0",
     "@types/express": "^4.17.13",
+    "@types/helmet": "^4.0.0",
+    "@types/node": "^16.10.3",
     "cross-env": "^7.0.2",
+    "serverless-dynamodb-local": "^0.2.40",
     "serverless-offline": "^5.12.1",
     "serverless-plugin-typescript": "^1.1.9",
+    "source-map-support": "^0.5.20",
     "ts-node": "^8.9.1",
     "tslint": "^6.1.2",
     "tslint-config-airbnb": "^5.11.2",
