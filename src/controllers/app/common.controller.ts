@@ -1,8 +1,6 @@
-import { injectable, inject } from "inversify";
-import { controller, httpGet, BaseHttpController, interfaces } from "inversify-express-utils";
-import { LoggerMiddleware } from "../../middlewares/logger.middleware";
+import { controller, httpGet, BaseHttpController, interfaces } from 'inversify-express-utils';
 
-@controller('/app/common', LoggerMiddleware)
+@controller('/app/common')
 export class CommonController extends BaseHttpController {
     @httpGet('/')
     public async index(): Promise<interfaces.IHttpActionResult> {

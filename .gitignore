@@ -5,6 +5,8 @@ jspm_packages
 # Serverless directories
 .serverless
 
+.dynamodb
+
 .build
 
 .nyc_output

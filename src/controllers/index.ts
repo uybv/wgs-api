@@ -1,2 +1,2 @@
 import './app';
-import './admin'
+import './admin';
